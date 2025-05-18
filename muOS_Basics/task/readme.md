@@ -20,7 +20,8 @@ To exit - R2+L2 (once exit screen will be scrambled press B button to exit compl
 
 ## Migrate From SD1 to SD2 & vice versa
 All your ROMs, Network settings, Screenshots, Save files, BIOS files will be transferred:
+```
 Source is from /mnt/mmc/ (SD1) 
 Destination to /mnt/sdcard/ (SD2)
-
+```
 Credits goes to: https://github.com/MustardOS/internal/blob/8204f0b14d3ff93b7283339beb4293f79e246d08/init/MUOS/task/Migrate%20to%20SD2.sh
