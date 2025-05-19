@@ -36,6 +36,7 @@ SD2_NETWORK="/mnt/sdcard/MUOS/network"
 SD2_SCREENSHOT="/mnt/sdcard/MUOS/screenshot"
 SD2_SAVE="/mnt/sdcard/MUOS/save"
 SD2_BIOS="/mnt/sdcard/MUOS/bios"
+SD2_SCRAPPY="/mnt/sdcard/MUOS/application/Scrappy/.scrappy/data"
 
 # Define target locations (now to SD1)
 SD1_ROM="/mnt/mmc/ROMS"
@@ -43,6 +44,7 @@ SD1_NETWORK="/mnt/mmc/MUOS/network"
 SD1_SCREENSHOT="/mnt/mmc/MUOS/screenshot"
 SD1_SAVE="/mnt/mmc/MUOS/save"
 SD1_BIOS="/mnt/mmc/MUOS/bios"
+SD1_SCRAPPY="/mnt/mmc/MUOS/application/Scrappy/.scrappy/data"
 
 # See if SD1 is mounted.
 # Let's do this early in case it's not here.
@@ -113,6 +115,13 @@ if [ -d "$SD2_BIOS" ]; then
 	echo "Size of BIOS Folder: $BIOS_SIZE MB"
 fi
 
+if [ -d "$SD2_SCRAPPY" ]; then
+	SCRAPPY_SIZE=$(GET_SIZE "$SD2_SCRAPPY")
+	TOTAL_SIZE=$((TOTAL_SIZE + SCRAPPY_SIZE))
+	echo "Size of Scrappy Folder: $SCRAPPY_SIZE MB"
+fi
+
+
 # Print the total size
 echo -e "\nTotal size of folders to migrate: ${TOTAL_SIZE} MB"
 
@@ -141,8 +150,8 @@ RSYNC_OPTS="--verbose --archive --checksum --remove-source-files --exclude-from=
 
 # Create necessary directories
 echo "Creating necessary directories on SD1..."
-mkdir -p "$SD1_ROM" "$SD1_NETWORK" "$SD1_SCREENSHOT" "$SD1_SAVE" "$SD1_BIOS"
-chmod 777 "$SD1_ROM" "$SD1_NETWORK" "$SD1_SCREENSHOT" "$SD1_SAVE" "$SD1_BIOS"
+mkdir -p "$SD1_ROM" "$SD1_NETWORK" "$SD1_SCREENSHOT" "$SD1_SAVE" "$SD1_BIOS" "$SD1_SCRAPPY"
+chmod 777 "$SD1_ROM" "$SD1_NETWORK" "$SD1_SCREENSHOT" "$SD1_SAVE" "$SD1_BIOS" "$SD1_SCRAPPY"
 
 # Move ROMs
 if [ -d "$SD2_ROM" ]; then
@@ -178,6 +187,13 @@ if [ -d "$SD2_BIOS" ]; then
 	echo -e "\nMoving BIOS files to SD Card 1"
 	rsync $RSYNC_OPTS "${SD2_BIOS}/" "${SD1_BIOS}/"
 	find "$SD2_BIOS" -type d -empty -delete
+fi
+
+# Move SCRAPPY 
+if [ -d "$SD2_SCRAPPY" ]; then
+	echo -e "\nMoving SCRAPPY files to SD Card 1"
+	rsync $RSYNC_OPTS "${SD2_SCRAPPY}/" "${SD1_SCRAPPY}/"
+	find "$SD2_SCRAPPY" -type d -empty -delete
 fi
 
 # Sync Filesystem
