@@ -10,7 +10,7 @@
 # - Screenshots
 # - Save files
 # - BIOS files
-# *-- NO DATA IS REMOVED FROM SD1! --*
+# - Scrappy data files
 #---------------------------------------------------------#
 
 # Check if using e Pre-Banana version of muOS
