@@ -10,6 +10,7 @@
 # - Screenshots
 # - Save files
 # - BIOS files
+# - Scrappy data files
 # *-- NO DATA IS REMOVED FROM SD2! --*
 #---------------------------------------------------------#
 
