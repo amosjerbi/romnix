@@ -9,8 +9,7 @@
 # - Network settings
 # - Screenshots
 # - Save files
-# - BIOS files
-# - Scrappy data files
+# - Scrappy data
 #---------------------------------------------------------#
 
 # Check if using e Pre-Banana version of muOS
@@ -35,7 +34,6 @@ SD1_ROM="/mnt/mmc/ROMS"
 SD1_NETWORK="/mnt/mmc/MUOS/network"
 SD1_SCREENSHOT="/mnt/mmc/MUOS/screenshot"
 SD1_SAVE="/mnt/mmc/MUOS/save"
-SD1_BIOS="/mnt/mmc/MUOS/bios"
 SD1_SCRAPPY="/mnt/mmc/MUOS/application/Scrappy/.scrappy/data"
 
 # Define target locations
@@ -43,7 +41,6 @@ SD2_ROM="/mnt/sdcard/ROMS"
 SD2_NETWORK="/mnt/sdcard/MUOS/network"
 SD2_SCREENSHOT="/mnt/sdcard/MUOS/screenshot"
 SD2_SAVE="/mnt/sdcard/MUOS/save"
-SD2_BIOS="/mnt/sdcard/MUOS/bios"
 SD2_SCRAPPY="/mnt/sdcard/MUOS/application/Scrappy/.scrappy/data"
 
 # See if SD2 is mounted.
@@ -109,12 +106,6 @@ if [ -d "$SD1_SAVE" ]; then
 	echo "Size of Save Folder: $SAVE_SIZE MB"
 fi
 
-if [ -d "$SD1_BIOS" ]; then
-	BIOS_SIZE=$(GET_SIZE "$SD1_BIOS")
-	TOTAL_SIZE=$((TOTAL_SIZE + BIOS_SIZE))
-	echo "Size of BIOS Folder: $BIOS_SIZE MB"
-fi
-
 if [ -d "$SD1_SCRAPPY" ]; then
 	SCRAPPY_SIZE=$(GET_SIZE "$SD1_SCRAPPY")
 	TOTAL_SIZE=$((TOTAL_SIZE + SCRAPPY_SIZE))
@@ -149,14 +140,13 @@ RSYNC_OPTS="--verbose --archive --checksum --remove-source-files --exclude-from=
 
 # Create necessary directories
 echo "Creating necessary directories on SD2..."
-mkdir -p "$SD2_ROM" "$SD2_NETWORK" "$SD2_SCREENSHOT" "$SD2_SAVE" "$SD2_BIOS" "$SD2_SCRAPPY"
-chmod 777 "$SD2_ROM" "$SD2_NETWORK" "$SD2_SCREENSHOT" "$SD2_SAVE" "$SD2_BIOS" "$SD2_SCRAPPY"
+mkdir -p "$SD2_ROM" "$SD2_NETWORK" "$SD2_SCREENSHOT" "$SD2_SAVE" "$SD2_SCRAPPY"
+chmod 777 "$SD2_ROM" "$SD2_NETWORK" "$SD2_SCREENSHOT" "$SD2_SAVE" "$SD2_SCRAPPY"
 
 # Move ROMs
 if [ -d "$SD1_ROM" ]; then
 	echo -e "\nMoving ROMs to SD Card 2"
 	rsync $RSYNC_OPTS "${SD1_ROM}/" "${SD2_ROM}/"
-	# Remove empty source directories after move
 	find "$SD1_ROM" -type d -empty -delete
 fi
 
@@ -179,13 +169,6 @@ if [ -d "$SD1_SAVE" ]; then
 	echo -e "\nMoving Saves to SD Card 2"
 	rsync $RSYNC_OPTS "${SD1_SAVE}/" "${SD2_SAVE}/"
 	find "$SD1_SAVE" -type d -empty -delete
-fi
-
-# Move BIOS
-if [ -d "$SD1_BIOS" ]; then
-	echo -e "\nMoving BIOS files to SD Card 2"
-	rsync $RSYNC_OPTS "${SD1_BIOS}/" "${SD2_BIOS}/"
-	find "$SD1_BIOS" -type d -empty -delete
 fi
 
 # Move SCRAPPY 
