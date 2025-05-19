@@ -11,7 +11,6 @@
 # - Save files
 # - BIOS files
 # - Scrappy data files
-# *-- NO DATA IS REMOVED FROM SD2! --*
 #---------------------------------------------------------#
 
 # Check if using e Pre-Banana version of muOS
