@@ -155,7 +155,8 @@ fun RomCard(
     platform: String,
     size: String? = null,
     onDownload: () -> Unit,
-    onUpload: () -> Unit
+    onUpload: () -> Unit,
+    onDownloadAndTransfer: (() -> Unit)? = null
 ) {
     Card(
         modifier = Modifier
@@ -240,6 +241,36 @@ fun RomCard(
                         contentDescription = "Upload",
                         modifier = Modifier.size(20.dp)
                     )
+                }
+                
+                // Download & Transfer button (if provided)
+                if (onDownloadAndTransfer != null) {
+                    Box(
+                        modifier = Modifier
+                            .size(40.dp)
+                            .clip(RoundedCornerShape(12.dp))
+                            .background(LightPurple)
+                            .clickable { onDownloadAndTransfer() },
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(2.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            val downloadPainter = androidx.compose.ui.res.painterResource(id = com.example.romdownloader.R.drawable.downloadsimple)
+                            androidx.compose.foundation.Image(
+                                painter = downloadPainter,
+                                contentDescription = null,
+                                modifier = Modifier.size(10.dp)
+                            )
+                            val uploadPainter = androidx.compose.ui.res.painterResource(id = com.example.romdownloader.R.drawable.paperplane)
+                            androidx.compose.foundation.Image(
+                                painter = uploadPainter,
+                                contentDescription = "Download & Transfer",
+                                modifier = Modifier.size(10.dp)
+                            )
+                        }
+                    }
                 }
             }
         }

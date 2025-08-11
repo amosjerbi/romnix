@@ -2,7 +2,7 @@
 
 Minimal Android app that mirrors key `rom.sh` functionality:
 - Select platform or search across all
-- Fetch ROM listings from ROM archives
+- Fetch ROM listings from archive.org
 - Download chosen ROMs via Android DownloadManager into app-specific Downloads (external files)
 
 ## Build

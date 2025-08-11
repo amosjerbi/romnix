@@ -83,6 +83,7 @@ import com.example.romdownloader.network.HostScanner
 import com.example.romdownloader.network.SshUploader
 import com.example.romdownloader.network.SshTester
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
@@ -118,22 +119,22 @@ class MainActivity : ComponentActivity() {
 }
 
 enum class Platform(val id: String, val label: String, val archiveUrl: String, val extensions: List<String>) {
-    NES("nes", "NES", "insert_your_link_here", listOf("7z", "zip")),
-    SNES("snes", "SNES", "insert_your_link_here", listOf("7z", "zip")),
-    GENESIS("genesis", "Genesis", "insert_your_link_here", listOf("7z", "zip")),
-    GB("gb", "Game Boy", "insert_your_link_here", listOf("7z", "zip")),
-    GBA("gba", "GBA", "insert_your_link_here", listOf("7z", "zip")),
-    GBC("gbc", "GBC", "insert_your_link_here", listOf("7z", "zip")),
-    GAMEGEAR("gamegear", "Game Gear", "insert_your_link_here", listOf("7z", "zip")),
-    NGP("ngp", "Neo Geo Pocket", "insert_your_link_here", listOf("7z", "zip")),
-    SMS("sms", "Sega Master System", "insert_your_link_here", listOf("7z", "zip")),
-    SEGACD("segacd", "Sega CD", "insert_your_link_here", listOf("7z", "zip", "chd", "cue", "bin")),
-    SEGA32X("sega32x", "Sega 32X", "insert_your_link_here", listOf("7z", "zip")),
-    SATURN("saturn", "Sega Saturn", "insert_your_link_here", listOf("7z", "zip")),
-    TG16("tg16", "TurboGrafx-16", "insert_your_link_here", listOf("7z", "zip")),
-    PS1("ps1", "PlayStation", "insert_your_link_here", listOf("7z", "zip", "cue")),
-    N64("n64", "Nintendo 64", "insert_your_link_here", listOf("7z", "zip", "z64", "n64", "v64")),
-    DREAMCAST("dreamcast", "Dreamcast", "insert_your_link_here", listOf("7z", "zip", "chd"));
+    NES("nes", "NES", "https://Put_Your_Link_Here.com/", listOf("7z", "zip")),
+    SNES("snes", "SNES", "https://Put_Your_Link_Here.com/", listOf("7z", "zip")),
+    GENESIS("genesis", "Genesis", "https://Put_Your_Link_Here.com/", listOf("7z", "zip")),
+    GB("gb", "Game Boy", "https://Put_Your_Link_Here.com/", listOf("7z", "zip")),
+    GBA("gba", "GBA", "https://Put_Your_Link_Here.com/", listOf("7z", "zip")),
+    GBC("gbc", "GBC", "https://Put_Your_Link_Here.com/", listOf("7z", "zip")),
+    GAMEGEAR("gamegear", "Game Gear", "https://Put_Your_Link_Here.com/", listOf("7z", "zip")),
+    NGP("ngp", "Neo Geo Pocket", "https://Put_Your_Link_Here.com/", listOf("7z", "zip")),
+    SMS("sms", "Sega Master System", "https://Put_Your_Link_Here.com/", listOf("7z", "zip")),
+    SEGACD("segacd", "Sega CD", "https://Put_Your_Link_Here.com/", listOf("7z", "zip", "chd", "cue", "bin")),
+    SEGA32X("sega32x", "Sega 32X", "https://Put_Your_Link_Here.com/", listOf("7z", "zip")),
+    SATURN("saturn", "Sega Saturn", "https://Put_Your_Link_Here.com/", listOf("7z", "zip")),
+    TG16("tg16", "TurboGrafx-16", "https://Put_Your_Link_Here.com/", listOf("7z", "zip")),
+    PS1("ps1", "PlayStation", "https://Put_Your_Link_Here.com/", listOf("7z", "zip", "cue")),
+    N64("n64", "Nintendo 64", "https://Put_Your_Link_Here.com/", listOf("7z", "zip", "z64", "n64", "v64")),
+    DREAMCAST("dreamcast", "Dreamcast", "https://Put_Your_Link_Here.com/", listOf("7z", "zip", "chd"));
 
     companion object { val all = entries.toList() }
 }
@@ -186,7 +187,7 @@ class RomRepository(private val client: OkHttpClient = OkHttpClient()) {
             )
             .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8")
             .header("Accept-Language", "en-US,en;q=0.9")
-            .header("Referer", "insert_your_link_here")
+            .header("Referer", "https://Put_Your_Link_Here.com/")
             .get()
             .build()
         return client.newCall(request).execute().use { response ->
@@ -443,6 +444,148 @@ class MainViewModel : ViewModel() {
             withContext(Dispatchers.Main) { onResult(res.isSuccess, msg) }
         }
     }
+
+    fun downloadAndTransfer(context: Context, downloader: Downloader, item: RomItem, onResult: (Boolean, String?) -> Unit) {
+        if (selectedHost?.ip == null) {
+            onResult(false, "No host selected")
+            return
+        }
+
+        // Start the download
+        downloader.download(context, item)
+        
+        // Wait for download and then transfer
+        viewModelScope.launch(Dispatchers.IO) {
+            val localFile = File(
+                context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS),
+                "roms/${item.platform.id}/${item.displayName}"
+            )
+            
+            // Poll for file existence with timeout
+            var attempts = 0
+            val maxAttempts = 60 // 60 seconds timeout
+            
+            while (!localFile.exists() && attempts < maxAttempts) {
+                delay(1000) // Wait 1 second
+                attempts++
+            }
+            
+            if (!localFile.exists()) {
+                withContext(Dispatchers.Main) {
+                    onResult(false, "Download timeout - file not found after 60 seconds")
+                }
+                return@launch
+            }
+            
+            // File exists, now transfer it
+            val port = sshPort.toIntOrNull() ?: 22
+            val username = if (useGuest) sshUsername.ifEmpty { "root" } else sshUsername.ifEmpty { "root" }
+            val password = if (useGuest) "" else sshPassword
+            val hostIp = selectedHost?.ip ?: return@launch
+            
+            val res = uploader.upload(localFile, item.platform.id, HostConfig(host = hostIp, port = port, username = username, password = password), baseOverride = remoteBasePath)
+            val msg = res.exceptionOrNull()?.message ?: res.getOrNull() ?: ""
+            Log.d("RomDL", "Download & Transfer result isSuccess=${res.isSuccess} pathOrError=${msg}")
+            
+            withContext(Dispatchers.Main) {
+                if (res.isSuccess) {
+                    onResult(true, "Downloaded and transferred to: ${msg}")
+                } else {
+                    onResult(false, "Transfer failed: ${msg}")
+                }
+            }
+        }
+    }
+
+    fun downloadAndTransferAll(context: Context, downloader: Downloader, onProgress: (Int, Int, String) -> Unit, onComplete: (Int, Int) -> Unit) {
+        if (selectedHost?.ip == null) {
+            onProgress(0, 0, "No host selected")
+            return
+        }
+
+        if (results.isEmpty()) {
+            onProgress(0, 0, "No ROMs found to download")
+            return
+        }
+
+        viewModelScope.launch(Dispatchers.IO) {
+            val totalItems = results.size
+            var successCount = 0
+            var failureCount = 0
+
+            withContext(Dispatchers.Main) {
+                onProgress(0, totalItems, "Starting bulk download and transfer...")
+            }
+
+            for ((index, item) in results.withIndex()) {
+                val currentProgress = index + 1
+                
+                withContext(Dispatchers.Main) {
+                    onProgress(currentProgress, totalItems, "Processing: ${item.displayName}")
+                }
+
+                try {
+                    // Start download
+                    downloader.download(context, item)
+                    
+                    // Wait for download completion
+                    val localFile = File(
+                        context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS),
+                        "roms/${item.platform.id}/${item.displayName}"
+                    )
+                    
+                    var attempts = 0
+                    val maxAttempts = 120 // 2 minutes timeout for each file
+                    
+                    while (!localFile.exists() && attempts < maxAttempts) {
+                        delay(1000)
+                        attempts++
+                    }
+                    
+                    if (!localFile.exists()) {
+                        failureCount++
+                        withContext(Dispatchers.Main) {
+                            onProgress(currentProgress, totalItems, "Download timeout: ${item.displayName}")
+                        }
+                        continue
+                    }
+                    
+                    // Transfer the file
+                    val port = sshPort.toIntOrNull() ?: 22
+                    val username = if (useGuest) sshUsername.ifEmpty { "root" } else sshUsername.ifEmpty { "root" }
+                    val password = if (useGuest) "" else sshPassword
+                    val hostIp = selectedHost?.ip ?: continue
+                    
+                    val res = uploader.upload(localFile, item.platform.id, HostConfig(host = hostIp, port = port, username = username, password = password), baseOverride = remoteBasePath)
+                    
+                    if (res.isSuccess) {
+                        successCount++
+                        withContext(Dispatchers.Main) {
+                            onProgress(currentProgress, totalItems, "✓ Completed: ${item.displayName}")
+                        }
+                    } else {
+                        failureCount++
+                        withContext(Dispatchers.Main) {
+                            onProgress(currentProgress, totalItems, "✗ Transfer failed: ${item.displayName}")
+                        }
+                    }
+                    
+                    // Small delay between transfers to avoid overwhelming the system
+                    delay(500)
+                    
+                } catch (e: Exception) {
+                    failureCount++
+                    withContext(Dispatchers.Main) {
+                        onProgress(currentProgress, totalItems, "✗ Error: ${item.displayName} - ${e.message}")
+                    }
+                }
+            }
+
+            withContext(Dispatchers.Main) {
+                onComplete(successCount, failureCount)
+            }
+        }
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -611,15 +754,27 @@ private fun OldBrowseScreen(viewModel: MainViewModel, downloader: Downloader) {
 
         Spacer(Modifier.height(12.dp))
 
-        ResultsList(results = viewModel.results, onDownload = { item ->
-            downloader.download(context = ctx, item = item)
-        }, onUpload = { item ->
-            val localFile = File(ctx.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), "roms/${item.platform.id}/${item.displayName}")
-            viewModel.uploadFile(localFile, item.platform) { ok, remote ->
-                val msg = if (ok) "Uploaded to: ${remote ?: "unknown"}" else "Upload failed"
-                android.widget.Toast.makeText(ctx, msg, android.widget.Toast.LENGTH_LONG).show()
-            }
-        })
+        ResultsList(
+            results = viewModel.results, 
+            onDownload = { item ->
+                downloader.download(context = ctx, item = item)
+            }, 
+            onUpload = { item ->
+                val localFile = File(ctx.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), "roms/${item.platform.id}/${item.displayName}")
+                viewModel.uploadFile(localFile, item.platform) { ok, remote ->
+                    val msg = if (ok) "Uploaded to: ${remote ?: "unknown"}" else "Upload failed"
+                    android.widget.Toast.makeText(ctx, msg, android.widget.Toast.LENGTH_LONG).show()
+                }
+            },
+            onDownloadAndTransfer = if (viewModel.selectedHost != null) {
+                { item ->
+                    viewModel.downloadAndTransfer(ctx, downloader, item) { ok, message ->
+                        val msg = if (ok) message ?: "Download and transfer completed" else "Download and transfer failed: ${message ?: "unknown error"}"
+                        android.widget.Toast.makeText(ctx, msg, android.widget.Toast.LENGTH_LONG).show()
+                    }
+                }
+            } else null
+        )
     }
 }
 
@@ -627,7 +782,8 @@ private fun OldBrowseScreen(viewModel: MainViewModel, downloader: Downloader) {
 fun ResultsList(
     results: List<RomItem>,
     onDownload: (RomItem) -> Unit,
-    onUpload: (RomItem) -> Unit
+    onUpload: (RomItem) -> Unit,
+    onDownloadAndTransfer: ((RomItem) -> Unit)? = null
 ) {
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         items(results) { item ->
@@ -642,6 +798,11 @@ fun ResultsList(
                         }
                         androidx.compose.material3.IconButton(onClick = { onUpload(item) }) {
                             androidx.compose.material3.Icon(Icons.Default.Send, contentDescription = "Upload")
+                        }
+                        if (onDownloadAndTransfer != null) {
+                            androidx.compose.material3.IconButton(onClick = { onDownloadAndTransfer(item) }) {
+                                androidx.compose.material3.Icon(Icons.Default.CheckCircle, contentDescription = "Download & Transfer")
+                            }
                         }
                     }
                 }

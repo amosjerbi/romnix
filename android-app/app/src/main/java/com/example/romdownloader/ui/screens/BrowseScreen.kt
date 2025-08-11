@@ -204,6 +204,106 @@ fun BrowseScreen(
             }
         }
         
+        // Bulk Download & Transfer Button (if results exist and host is selected)
+        if (viewModel.results.isNotEmpty() && viewModel.selectedHost != null) {
+            var showBulkProgress by remember { mutableStateOf(false) }
+            var bulkProgressText by remember { mutableStateOf("") }
+            var bulkProgress by remember { mutableStateOf(0f) }
+            
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 8.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = Purple.copy(alpha = 0.1f)
+                ),
+                elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
+            ) {
+                Column(
+                    modifier = Modifier.padding(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text(
+                                text = "Bulk Download & Transfer",
+                                style = MaterialTheme.typography.titleMedium,
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
+                            Text(
+                                text = "${viewModel.results.size} ROMs found • Host: ${viewModel.selectedHost?.ip}",
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                        
+                        Button(
+                            onClick = {
+                                showBulkProgress = true
+                                viewModel.downloadAndTransferAll(
+                                    context = context,
+                                    downloader = downloader,
+                                    onProgress = { current, total, message ->
+                                        bulkProgress = if (total > 0) current.toFloat() / total.toFloat() else 0f
+                                        bulkProgressText = message
+                                    },
+                                    onComplete = { success, failures ->
+                                        showBulkProgress = false
+                                        android.widget.Toast.makeText(
+                                            context,
+                                            "Bulk operation completed: $success successful, $failures failed",
+                                            android.widget.Toast.LENGTH_LONG
+                                        ).show()
+                                    }
+                                )
+                            },
+                            enabled = !showBulkProgress,
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = Purple
+                            ),
+                            shape = RoundedCornerShape(12.dp)
+                        ) {
+                            if (showBulkProgress) {
+                                CircularProgressIndicator(
+                                    modifier = Modifier.size(16.dp),
+                                    color = MaterialTheme.colorScheme.onPrimary,
+                                    strokeWidth = 2.dp
+                                )
+                                Spacer(modifier = Modifier.width(8.dp))
+                            }
+                            Text(
+                                text = if (showBulkProgress) "Processing..." else "Download All & Transfer",
+                                fontSize = 14.sp,
+                                fontWeight = FontWeight.Medium
+                            )
+                        }
+                    }
+                    
+                    if (showBulkProgress) {
+                        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                            LinearProgressIndicator(
+                                progress = { bulkProgress },
+                                modifier = Modifier.fillMaxWidth(),
+                                color = Purple,
+                                trackColor = LightPurple.copy(alpha = 0.3f)
+                            )
+                            Text(
+                                text = bulkProgressText,
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                maxLines = 1
+                            )
+                        }
+                    }
+                }
+            }
+        }
+        
         // Results
         if (viewModel.isSearching) {
             ShimmerLoadingList()
@@ -268,7 +368,23 @@ fun BrowseScreen(
                                     android.widget.Toast.LENGTH_LONG
                                 ).show()
                             }
-                        }
+                        },
+                        onDownloadAndTransfer = if (viewModel.selectedHost != null) {
+                            {
+                                viewModel.downloadAndTransfer(context, downloader, rom) { success, message ->
+                                    val toastMessage = if (success) {
+                                        message ?: "Download and transfer completed successfully"
+                                    } else {
+                                        "Download and transfer failed: ${message ?: "Unknown error"}"
+                                    }
+                                    android.widget.Toast.makeText(
+                                        context,
+                                        toastMessage,
+                                        android.widget.Toast.LENGTH_LONG
+                                    ).show()
+                                }
+                            }
+                        } else null
                     )
                 }
             }
