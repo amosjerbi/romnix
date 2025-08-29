@@ -9,7 +9,7 @@ A modern web-based ROM downloader with direct device transfer capabilities for r
 ### Option 1: GitHub Pages (Demo Mode) 
 **Best for**: Trying out the interface and exploring features
 
-🌐 **[Live Demo](https://yourusername.github.io/rom-downloader-web)**
+🌐 **[Live Demo](https://amosjerbi.github.io/romnix_web)**
 
 - ✅ Full web interface
 - ✅ ROM browsing and search
@@ -20,7 +20,7 @@ A modern web-based ROM downloader with direct device transfer capabilities for r
 ### Option 2: GitHub Codespaces (Full Functionality) ⭐ **Recommended**
 **Best for**: Full ROM downloading and device transfer capabilities
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/yourusername/rom-downloader-web/codespaces/new)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/amosjerbi/romnix_web/codespaces/new)
 
 - ✅ Complete functionality
 - ✅ Real ROM downloads
@@ -33,8 +33,8 @@ A modern web-based ROM downloader with direct device transfer capabilities for r
 **Best for**: Development and customization
 
 ```bash
-git clone https://github.com/yourusername/rom-downloader-web.git
-cd rom-downloader-web
+git clone https://github.com/amosjerbi/romnix_web.git
+cd romnix_web
 python start_services.py
 ```
 
@@ -155,7 +155,7 @@ To deploy your own copy to GitHub Pages:
    - Save settings
 
 3. **Your site will be available at**:
-   `https://yourusername.github.io/rom-downloader-web`
+   `https://yourusername.github.io/romnix_web`
 
 ## 🔒 Security & Legal
 
@@ -173,8 +173,8 @@ To deploy your own copy to GitHub Pages:
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/rom-downloader-web.git
-cd rom-downloader-web
+git clone https://github.com/amosjerbi/romnix_web.git
+cd romnix_web
 
 # Install system dependencies (macOS)
 brew install hudochenkov/sshpass/sshpass
@@ -234,9 +234,9 @@ A: Try refreshing the page or creating a new Codespace. Check GitHub Codespaces 
 
 ### Getting Help
 
-- 🐛 [Report Issues](https://github.com/yourusername/rom-downloader-web/issues)
-- 💬 [Discussions](https://github.com/yourusername/rom-downloader-web/discussions)  
-- 📖 [Wiki](https://github.com/yourusername/rom-downloader-web/wiki)
+- 🐛 [Report Issues](https://github.com/amosjerbi/romnix_web/issues)
+- 💬 [Discussions](https://github.com/amosjerbi/romnix_web/discussions)  
+- 📖 [Wiki](https://github.com/amosjerbi/romnix_web/wiki)
 
 ## 📄 License
 
@@ -246,6 +246,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Made with ❤️ for the retro gaming community**
 
-[![GitHub stars](https://img.shields.io/github/stars/yourusername/rom-downloader-web?style=social)](https://github.com/yourusername/rom-downloader-web)
-[![GitHub forks](https://img.shields.io/github/forks/yourusername/rom-downloader-web?style=social)](https://github.com/yourusername/rom-downloader-web/network/members)
-[![GitHub issues](https://img.shields.io/github/issues/yourusername/rom-downloader-web)](https://github.com/yourusername/rom-downloader-web/issues)
+[![GitHub stars](https://img.shields.io/github/stars/amosjerbi/romnix_web?style=social)](https://github.com/amosjerbi/romnix_web)
+[![GitHub forks](https://img.shields.io/github/forks/amosjerbi/romnix_web?style=social)](https://github.com/amosjerbi/romnix_web/network/members)
+[![GitHub issues](https://img.shields.io/github/issues/amosjerbi/romnix_web)](https://github.com/amosjerbi/romnix_web/issues)
