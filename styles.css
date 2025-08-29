@@ -965,7 +965,7 @@ body {
     box-shadow: var(--shadow-xl);
     max-width: 500px;
     width: 100%;
-    max-height: 94vh;
+    max-height: 88vh;
     overflow: hidden;
     display: flex;
     flex-direction: column;
