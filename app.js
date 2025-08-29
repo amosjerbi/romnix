@@ -1309,7 +1309,7 @@ class RomDownloaderApp {
                             <span>${platform.label}</span>
                         </div>
                         <input type="url" 
-                               placeholder="Enter archive URL (e.g., https://example.com/roms/${platform.id.toLowerCase()}/" 
+                               placeholder="Enter custom link (e.g., https://example.com/roms/${platform.id.toLowerCase()}/" 
                                value="${platform.archiveUrl || ''}" 
                                data-platform="${platform.id}" 
                                class="archive-url-input">
@@ -1398,7 +1398,7 @@ class RomDownloaderApp {
         if (hasChanges) {
             this.saveArchiveSettingsToStorage();
             this.hideModal('archiveSettingsModal');
-            this.showNotification('Archive settings saved successfully', 'success');
+            this.showNotification('Custom links saved successfully', 'success');
         } else {
             this.hideModal('archiveSettingsModal');
             this.showNotification('No changes were made', 'info');

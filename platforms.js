@@ -410,16 +410,16 @@ class RomRepository {
     async search(platform, searchTerm = '') {
         try {
             console.log(`Searching ${platform.label} for "${searchTerm}"...`);
-            console.log(`🔗 Platform archive URL: ${platform.archiveUrl}`);
+            console.log(`🔗 Platform custom link: ${platform.archiveUrl}`);
             
-            // Check if platform has a configured archive URL
+            // Check if platform has a configured custom link
             if (!platform.archiveUrl || platform.archiveUrl.trim() === '') {
-                console.log(`❌ No archive URL configured for ${platform.label}`);
+                console.log(`❌ No custom link configured for ${platform.label}`);
                 
                 // Show helpful notification to user
                 if (window.romApp) {
                     window.romApp.showNotification(
-                        `No archive URL configured for ${platform.label}. Click Settings (⚙️) to configure.`, 
+                        `No custom link configured for ${platform.label}. Click Settings (⚙️) to configure.`, 
                         'warning'
                     );
                 }

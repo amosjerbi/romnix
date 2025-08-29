@@ -965,7 +965,7 @@ body {
     box-shadow: var(--shadow-xl);
     max-width: 500px;
     width: 100%;
-    max-height: 80vh;
+    max-height: 94vh;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -1012,9 +1012,14 @@ body {
 .modal-footer {
     display: flex;
     gap: var(--spacing-lg);
-    justify-content: flex-end;
+    justify-content: center; /* Center single button */
     padding: var(--spacing-xl);
     border-top: 1px solid var(--surface-variant);
+}
+
+/* When modal footer has multiple buttons, align to right */
+.modal-footer:has(button + button) {
+    justify-content: flex-end;
 }
 
 .platform-list {
@@ -1485,7 +1490,7 @@ body {
     }
 }
 
-/* Archive Settings Modal */
+/* Custom Links Modal */
 .archive-settings-info {
     margin-bottom: 2rem;
     padding: 1.5rem;
@@ -1520,8 +1525,8 @@ body {
 }
 
 .archive-section {
-    padding: 1rem 0;
-    border-bottom: 1px solid var(--surface-variant);
+    padding: 0.3rem 0;
+    /* border-bottom: 1px solid var(--surface-variant); */
 }
 
 .archive-section:last-child {
@@ -1536,7 +1541,7 @@ body {
     flex-shrink: 0;
     font-weight: 600;
     color: var(--primary-color);
-    font-size: var(--font-size-base);
+    font-size: var(--font-size-sm);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1609,7 +1614,7 @@ body {
     margin-left: 140px;
 }
 
-/* Responsive adjustments for archive settings */
+/* Responsive adjustments for custom links */
 @media (max-width: 768px) {
     .archive-form .form-row {
         flex-wrap: wrap;
@@ -1638,7 +1643,7 @@ body {
     
     .test-url-btn {
         order: 2;
-        padding: var(--spacing-xs) var(--spacing-sm);
+        padding: var(--spacing-md) var(--spacing-sm);
         font-size: var(--font-size-sm);
         margin-left: auto; /* Push to the right */
         flex: 0 0 auto; /* Don't grow or shrink */
