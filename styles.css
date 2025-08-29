@@ -74,9 +74,12 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     min-height: 100vh;
+    min-height: 100dvh; /* Better mobile support */
     display: flex;
     flex-direction: column;
     background-color: var(--background-color);
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    position: relative;
 }
 
 /* Top Navigation */
@@ -135,6 +138,8 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     width: 100%;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    padding-bottom: calc(var(--spacing-xl) + 80px); /* Space for bottom nav */
 }
 
 /* Screen Management */
@@ -672,6 +677,8 @@ body {
 .section-actions {
     display: flex;
     gap: var(--spacing-sm);
+    flex-wrap: wrap;
+    align-items: center;
 }
 
 .manual-ip {
@@ -845,10 +852,16 @@ body {
     display: flex;
     justify-content: center;
     gap: var(--spacing-lg);
-    position: sticky;
+    position: fixed; /* Changed from sticky to fixed for better mobile support */
     bottom: 0;
-    z-index: 100;
+    left: 0;
+    right: 0;
+    z-index: 1000; /* Higher z-index to ensure it stays on top */
     box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8px); /* Add backdrop blur for modern look */
+    -webkit-backdrop-filter: blur(8px);
+    max-width: 100vw; /* Prevent overflow */
+    overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
 .nav-item {
@@ -1212,10 +1225,23 @@ body {
     }
 }
 
+/* Medium screens - improve button layout */
+@media (max-width: 900px) {
+    .section-actions .action-btn {
+        font-size: var(--font-size-sm);
+        padding: var(--spacing-sm) var(--spacing-sm);
+    }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
+    body {
+        overflow-x: hidden; /* Prevent horizontal scroll on mobile */
+    }
+    
     .main-content {
         padding: var(--spacing-lg);
+        padding-bottom: calc(var(--spacing-lg) + 90px); /* More space for mobile bottom nav */
     }
     
     .handheld-cards {
@@ -1263,6 +1289,20 @@ body {
     
     .section-actions {
         justify-content: center;
+        flex-wrap: wrap;
+        gap: var(--spacing-xs);
+    }
+    
+    .section-actions .action-btn {
+        flex: 1;
+        min-width: 0;
+        font-size: var(--font-size-sm);
+        padding: var(--spacing-sm) var(--spacing-xs);
+        white-space: nowrap;
+    }
+    
+    .section-actions .action-btn .material-icons {
+        font-size: 18px;
     }
     
     .manual-ip {
@@ -1337,13 +1377,47 @@ body {
     }
     
     .bottom-nav {
-        padding: var(--spacing-xs) 0;
-        gap: var(--spacing-sm);
+        padding: var(--spacing-sm) var(--spacing-xs);
+        gap: var(--spacing-md);
+        height: 70px; /* Fixed height for consistency */
+        align-items: center;
+        border-top: 2px solid var(--surface-variant);
     }
     
     .nav-item {
-        padding: var(--spacing-xs) var(--spacing-sm);
-        min-width: 60px;
+        padding: var(--spacing-xs) var(--spacing-md);
+        min-width: 80px;
+        flex: 1;
+        max-width: 120px;
+    }
+    
+    .nav-item .material-icons {
+        font-size: 22px;
+    }
+    
+    .nav-label {
+        font-size: 11px;
+        font-weight: 600;
+    }
+}
+
+/* Extra Small Screens */
+@media (max-width: 480px) {
+    .main-content {
+        padding: var(--spacing-md);
+        padding-bottom: calc(var(--spacing-md) + 85px);
+    }
+    
+    .bottom-nav {
+        padding: var(--spacing-xs);
+        height: 65px;
+        gap: var(--spacing-xs);
+    }
+    
+    .nav-item {
+        padding: var(--spacing-xs);
+        min-width: 70px;
+        gap: 2px;
     }
     
     .nav-item .material-icons {
@@ -1352,6 +1426,25 @@ body {
     
     .nav-label {
         font-size: 10px;
+    }
+    
+    /* Stack action buttons vertically on very small screens */
+    .section-actions {
+        flex-direction: column;
+        gap: var(--spacing-xs);
+    }
+    
+    .section-actions .action-btn {
+        flex: none;
+        width: 100%;
+        padding: var(--spacing-sm);
+        font-size: var(--font-size-sm);
+    }
+    
+    /* Ensure content is not cut off */
+    .screen {
+        min-height: calc(100vh - 130px);
+        min-height: calc(100dvh - 130px);
     }
 }
 
