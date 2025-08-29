@@ -419,7 +419,7 @@ body {
 }
 
 .console-card h3 {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-base);
     font-weight: 600;
     color: var(--on-surface);
 }
@@ -992,7 +992,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: transparent;
+    /* background-color: transparent; */
     transition: background-color var(--transition-fast);
 }
 
@@ -1003,12 +1003,15 @@ body {
 .action-btn.primary {
     background-color: #000000;
     color: white;
-    padding: var(--spacing-lg) var(--spacing-2xl);
+    padding: var(--spacing-md) var(--spacing-xl);
     border-radius: 100px;
     position: relative;
     z-index: 1;
     font-weight: 600;
+    font-size: var(--font-size-base);
     letter-spacing: 0.01em;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
 }
 
 .action-btn.primary::before {
@@ -1017,18 +1020,12 @@ body {
     inset: -2px;
     border-radius: 100px;
     padding: 2px;
-    background: linear-gradient(120deg, #00f2fe, #4facfe);
-    -webkit-mask: 
-        linear-gradient(#fff 0 0) content-box, 
-        linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
     z-index: -1;
     transition: all 0.3s ease;
 }
 
 .action-btn.primary::after {
-    content: '↗';
+    /* content: '↗'; */
     margin-left: 8px;
     font-family: system-ui;
     transition: transform 0.2s ease;
@@ -1040,7 +1037,11 @@ body {
 }
 
 .action-btn.primary:hover::before {
-    background: linear-gradient(120deg, #4facfe, #00f2fe);
+    background: #000000;
+    z-index: 1;
+    transition: all 0.3s ease;
+    position: absolute;
+    inset: -2px;
 }
 
 .action-btn.primary:active {
@@ -1226,6 +1227,7 @@ body {
     cursor: pointer;
     transition: all var(--transition-fast);
     background-color: var(--surface-color);
+    column-gap: 12px;
 }
 
 .platform-option:hover {
