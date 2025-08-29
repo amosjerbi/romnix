@@ -9,7 +9,7 @@ A modern web-based ROM downloader with direct device transfer capabilities for r
 ### Option 1: GitHub Pages (Demo Mode) 
 **Best for**: Trying out the interface and exploring features
 
-🌐 **[Live Demo](https://amosjerbi.github.io/romnix_web)**
+🌐 **[Live Demo](https://rocknix.ajerbi.com)**
 
 - ✅ Full web interface
 - ✅ ROM browsing and search
