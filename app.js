@@ -607,6 +607,12 @@ class RomDownloaderApp {
     }
     
     async uploadRom(rom) {
+        // Check if we're running on GitHub Pages (no backend services)
+        if (window.location.hostname.includes('github.io')) {
+            this.showNotification('⚠️ Upload requires GitHub Codespaces or local setup. See README for instructions.', 'error');
+            return;
+        }
+        
         if (!this.selectedHost) {
             this.showNotification('No host selected', 'error');
             return;
@@ -678,6 +684,12 @@ class RomDownloaderApp {
     }
     
     async downloadAndTransferRom(rom) {
+        // Check if we're running on GitHub Pages (no backend services)
+        if (window.location.hostname.includes('github.io')) {
+            this.showNotification('⚠️ Transfer requires GitHub Codespaces or local setup. See README for instructions.', 'error');
+            return;
+        }
+        
         if (!this.selectedHost) {
             this.showNotification('No host selected', 'error');
             return;
@@ -757,6 +769,12 @@ class RomDownloaderApp {
     }
     
     async bulkDownloadAndTransfer() {
+        // Check if we're running on GitHub Pages (no backend services)
+        if (window.location.hostname.includes('github.io')) {
+            this.showNotification('⚠️ Bulk transfer requires GitHub Codespaces or local setup. See README for instructions.', 'error');
+            return;
+        }
+        
         if (this.romResults.length === 0) {
             this.showNotification('No ROMs to download', 'warning');
             return;
@@ -1054,6 +1072,12 @@ class RomDownloaderApp {
     }
     
     scanNetwork() {
+        // Check if we're running on GitHub Pages (no backend services)
+        if (window.location.hostname.includes('github.io')) {
+            this.showNotification('⚠️ Network scanning requires GitHub Codespaces or local setup. See README for instructions.', 'error');
+            return;
+        }
+        
         if (this.isScanning) return;
         
         this.isScanning = true;
@@ -1087,6 +1111,12 @@ class RomDownloaderApp {
     }
     
     testConnection() {
+        // Check if we're running on GitHub Pages (no backend services)
+        if (window.location.hostname.includes('github.io')) {
+            this.showNotification('⚠️ Connection testing requires GitHub Codespaces or local setup. See README for instructions.', 'error');
+            return;
+        }
+        
         if (!this.selectedHost) {
             this.showNotification('No host selected', 'error');
             return;

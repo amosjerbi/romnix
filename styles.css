@@ -1127,6 +1127,12 @@ body {
     font-weight: 500;
 }
 
+.banner-text {
+    flex: 1;
+    line-height: 1.4;
+    text-align: center;
+}
+
 .banner-close {
     background: none;
     border: none;
