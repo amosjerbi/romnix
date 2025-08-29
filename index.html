@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROM Downloader</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <!-- Main App Container -->
+        <div class="app-container">
+            <!-- Top Navigation -->
+            <header class="top-nav">
+                <div class="nav-content">
+                    <h1 class="app-title">ROM Downloader</h1>
+                    <div class="nav-actions">
+                        <button class="nav-button" id="settingsBtn">
+                            <span class="material-icons">settings</span>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Content Area -->
+            <main class="main-content">
+                <!-- Devices Screen (merged handheld and network) -->
+                <div id="devicesScreen" class="screen active">
+                    <div class="screen-header">
+                        <h2>Device Connection</h2>
+                        <p class="screen-subtitle">Connect to your handheld gaming device or network hosts</p>
+                    </div>
+
+                    <!-- Device Templates Section -->
+                    <div class="devices-section">
+                        <div class="section-header">
+                            <h3>Device Templates</h3>
+                            <div class="section-actions">
+                                <button class="action-btn secondary" id="editTemplatesBtn">
+                                    <span class="material-icons">edit</span>
+                                    Edit Templates
+                                </button>
+                                <button class="action-btn secondary" id="scanBtn">
+                                    <span class="material-icons">search</span>
+                                    Scan Network
+                                </button>
+                                <button class="action-btn secondary" id="testConnectionBtn">
+                                    <span class="material-icons">network_check</span>
+                                    Test Connection
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="handheld-cards">
+                            <div class="handheld-card" id="rocknixCard">
+                                <div class="card-header">
+                                    <div class="card-icon">
+                                        <span class="material-icons">sports_esports</span>
+                                    </div>
+                                    <div class="card-content">
+                                        <h3>Rocknix</h3>
+                                        <p>Linux-based retro gaming OS</p>
+                                    </div>
+                                </div>
+                                <button class="connect-btn" data-template="rocknix">Connect</button>
+                            </div>
+
+                            <div class="handheld-card" id="muosCard">
+                                <div class="card-header">
+                                    <div class="card-icon">
+                                        <span class="material-icons">gamepad</span>
+                                    </div>
+                                    <div class="card-content">
+                                        <h3>muOS</h3>
+                                        <p>Minimal Unix for retro handhelds</p>
+                                    </div>
+                                </div>
+                                <button class="connect-btn" data-template="muos">Connect</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Discovered Hosts Section -->
+                    <div class="network-section">
+                        <div class="section-header">
+                            <h3>Discovered Hosts</h3>
+                        </div>
+
+                        <div class="hosts-list" id="hostsList">
+                            <div class="no-hosts" id="noHosts">
+                                <p>No hosts found. Use the Scan button to discover devices on your network.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SSH Configuration Section -->
+                    <div class="network-section">
+                        <div class="section-header">
+                            <h3>SSH Configuration</h3>
+                        </div>
+
+                        <div class="ssh-config">
+                            <div class="config-row">
+                                <input type="text" id="sshUsername" placeholder="Username" value="root" class="config-input">
+                                <input type="password" id="sshPassword" placeholder="Password" class="config-input">
+                                <input type="number" id="sshPort" placeholder="22" value="22" class="config-input short">
+                            </div>
+                            <div class="config-row">
+                                <input type="text" id="remoteBasePath" placeholder="/storage/roms or /mnt/mmc/ROMS" class="config-input full">
+                            </div>
+                            <div class="config-toggles">
+                                <label class="toggle-label">
+                                    <input type="checkbox" id="guestMode" class="toggle-input">
+                                    <span class="toggle-switch"></span>
+                                    Guest Mode
+                                </label>
+                                <label class="toggle-label">
+                                    <input type="checkbox" id="dhcpNetwork" class="toggle-input" checked>
+                                    <span class="toggle-switch"></span>
+                                    DHCP Network
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Console Selection Screen -->
+                <div id="consoleScreen" class="screen">
+                    <div class="screen-header">
+                        <h2>Select Console</h2>
+                        <div class="search-container">
+                            <input type="text" id="consoleSearch" placeholder="Search consoles..." class="search-input">
+                            <span class="material-icons search-icon">search</span>
+                        </div>
+                    </div>
+
+                    <div class="console-grid" id="consoleGrid">
+                        <!-- Console cards will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Browse ROMs Screen -->
+                <div id="browseScreen" class="screen">
+                    <div class="screen-header">
+                        <h2>Browse ROMs</h2>
+                        <div class="browse-controls">
+                            <div class="search-row">
+                                <div class="search-container">
+                                    <input type="text" id="romSearch" placeholder="Search games..." class="search-input">
+                                    <span class="material-icons search-icon">search</span>
+                                    <button class="clear-btn" id="clearSearchBtn" style="display: none;">
+                                        <span class="material-icons">clear</span>
+                                    </button>
+                                </div>
+                                <button class="action-btn primary" id="searchBtn">
+                                    <span class="material-icons">search</span>
+                                    Search
+                                </button>
+                            </div>
+                            <div class="filter-row">
+                                <div class="platform-filter">
+                                    <button class="filter-chip" id="platformFilter">
+                                        <span class="material-icons">filter_list</span>
+                                        <span id="platformFilterText">All Platforms</span>
+                                    </button>
+                                    <button class="filter-chip clear" id="clearFilterBtn" style="display: none;">
+                                        Clear
+                                    </button>
+                                </div>
+                                <div class="quick-filters" id="quickFilters">
+                                    <!-- Quick filter chips will be populated by JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bulk Download Controls -->
+                    <div class="bulk-controls" id="bulkControls" style="display: none;">
+                        <div class="bulk-info">
+                            <h3>Bulk Actions</h3>
+                            <p id="bulkInfo">0 ROMs found</p>
+                        </div>
+                        <div class="bulk-buttons">
+                            <button class="action-btn secondary" id="downloadAllBtn">
+                                <span class="material-icons">download</span>
+                                Download All
+                            </button>
+                            <button class="action-btn primary" id="bulkDownloadBtn">
+                                <span class="material-icons">download_for_offline</span>
+                                Download All & Transfer
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Progress Bar -->
+                    <div class="progress-container" id="progressContainer" style="display: none;">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <p class="progress-text" id="progressText">Preparing...</p>
+                    </div>
+
+                    <!-- ROM Results -->
+                    <div class="rom-results" id="romResults">
+                        <div class="no-results" id="noResults">
+                            <span class="material-icons">search_off</span>
+                            <p>Search for ROMs to get started</p>
+                        </div>
+                        <div class="loading-shimmer" id="loadingShimmer" style="display: none;">
+                            <!-- Loading placeholders will be generated by JavaScript -->
+                        </div>
+                        <div class="rom-list" id="romList">
+                            <!-- ROM cards will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+
+            </main>
+
+            <!-- Bottom Navigation -->
+            <nav class="bottom-nav">
+                <button class="nav-item active" data-screen="devicesScreen">
+                    <span class="material-icons">devices</span>
+                    <span class="nav-label">Devices</span>
+                </button>
+                <button class="nav-item" data-screen="consoleScreen">
+                    <span class="material-icons">games</span>
+                    <span class="nav-label">Consoles</span>
+                </button>
+            </nav>
+        </div>
+
+        <!-- Modals -->
+        <!-- Platform Picker Modal -->
+        <div class="modal" id="platformModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Select Platform</h3>
+                    <button class="close-btn" data-modal="platformModal">
+                        <span class="material-icons">close</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="platform-list" id="platformList">
+                        <!-- Platform options will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Template Editor Modal -->
+        <div class="modal" id="templateModal">
+            <div class="modal-content large">
+                <div class="modal-header">
+                    <h3>Edit Templates</h3>
+                    <button class="close-btn" data-modal="templateModal">
+                        <span class="material-icons">close</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="template-editor" id="templateEditor">
+                        <!-- Template forms will be populated by JavaScript -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="action-btn secondary" data-modal="templateModal">Cancel</button>
+                    <button class="action-btn primary" id="saveTemplatesBtn">Save Changes</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Archive Settings Modal -->
+        <div class="modal" id="archiveSettingsModal">
+            <div class="modal-content large">
+                <div class="modal-header">
+                    <h3>Archive Settings</h3>
+                    <button class="close-btn" data-modal="archiveSettingsModal">
+                        <span class="material-icons">close</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="archive-settings-info">
+                        <p>Configure custom archive URLs for each platform. Leave empty to disable ROM search for that platform.</p>
+                        <div class="settings-tips">
+                            <div class="tip">
+                                <span class="material-icons">info</span>
+                                <span>Use any ROM archive website that provides directory listings</span>
+                            </div>
+                            <div class="tip">
+                                <span class="material-icons">link</span>
+                                <span>URLs should end with a forward slash (/) for directory access</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="archive-editor" id="archiveEditor">
+                        <!-- Archive forms will be populated by JavaScript -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="action-btn secondary" data-modal="archiveSettingsModal">Cancel</button>
+                    <button class="action-btn primary" id="saveArchiveSettingsBtn">Save Settings</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Demo Mode Banner -->
+        <div class="demo-banner" id="demoBanner">
+            <div class="banner-content">
+                <span class="material-icons">info</span>
+                <span>Demo Mode: Using sample ROM data due to CORS restrictions</span>
+                <button class="banner-close" onclick="this.parentElement.parentElement.style.display='none'">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Notification Container -->
+        <div class="notification-container" id="notifications"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="platforms.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

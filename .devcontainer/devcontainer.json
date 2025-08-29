@@ -1,0 +1,41 @@
+{
+    "name": "ROM Downloader Web",
+    "image": "python:3.11-slim",
+    "features": {
+        "ghcr.io/devcontainers/features/node:1": {
+            "version": "18"
+        }
+    },
+    "forwardPorts": [8000, 8001, 8002],
+    "portsAttributes": {
+        "8000": {
+            "label": "Frontend Server",
+            "onAutoForward": "openBrowser"
+        },
+        "8001": {
+            "label": "CORS Proxy Server"
+        },
+        "8002": {
+            "label": "ROM Transfer Service"
+        }
+    },
+    "postCreateCommand": "apt-get update && apt-get install -y sshpass openssh-client curl && pip install requests",
+    "postStartCommand": "python start_services.py &",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+                "ms-python.autopep8",
+                "bradlc.vscode-tailwindcss",
+                "ms-vscode.vscode-json"
+            ],
+            "settings": {
+                "python.defaultInterpreterPath": "/usr/local/bin/python",
+                "python.linting.enabled": true,
+                "python.linting.pylintEnabled": true,
+                "files.autoSave": "afterDelay"
+            }
+        }
+    },
+    "remoteUser": "root"
+}
