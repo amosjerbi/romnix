@@ -1403,6 +1403,24 @@ body {
 
 /* Extra Small Screens */
 @media (max-width: 480px) {
+    /* Make test URL button even more compact */
+    .test-url-btn {
+        padding: var(--spacing-xs);
+        min-width: auto;
+        margin-left: var(--spacing-xs); /* Closer to platform name */
+    }
+    
+    .test-url-btn span:not(.material-icons) {
+        display: none;
+    }
+    
+    .test-url-btn .material-icons {
+        margin: 0;
+    }
+    
+    .platform-name {
+        max-width: calc(100% - 40px); /* More space for platform name */
+    }
     .main-content {
         padding: var(--spacing-md);
         padding-bottom: calc(var(--spacing-md) + 85px);
@@ -1519,6 +1537,9 @@ body {
     font-weight: 600;
     color: var(--primary-color);
     font-size: var(--font-size-base);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .platform-name .material-icons {
@@ -1591,24 +1612,47 @@ body {
 /* Responsive adjustments for archive settings */
 @media (max-width: 768px) {
     .archive-form .form-row {
-        flex-direction: column;
-        align-items: stretch;
+        flex-wrap: wrap;
         gap: 0.5rem;
     }
     
     .platform-name {
         min-width: auto;
-        justify-content: flex-start;
+        flex: 1;
+        display: flex;
+        align-items: center;
+        order: 1;
+        max-width: calc(100% - 100px); /* Leave space for test button */
+    }
+    
+    .platform-name span:not(.material-icons) {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+    
+    .archive-url-input {
+        flex: 100%;
+        order: 3;
+    }
+    
+    .test-url-btn {
+        order: 2;
+        padding: var(--spacing-xs) var(--spacing-sm);
+        font-size: var(--font-size-sm);
+        margin-left: auto; /* Push to the right */
+        flex: 0 0 auto; /* Don't grow or shrink */
+    }
+    
+    .test-url-btn .material-icons {
+        font-size: 16px;
     }
     
     .url-status {
         margin-left: 0;
         margin-top: 0.5rem;
-    }
-    
-    .test-url-btn {
-        align-self: flex-end;
-        width: fit-content;
+        order: 4;
+        flex: 100%;
     }
 }
 
