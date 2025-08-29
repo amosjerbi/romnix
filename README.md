@@ -23,7 +23,7 @@ A modern web-based ROM downloader with direct device transfer capabilities for r
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/amosjerbi/romnix_web/codespaces/new)
 
 - ✅ Complete functionality
-- ✅ Real ROM downloads
+- ✅ File management capabilities
 - ✅ SSH device transfers  
 - ✅ Network device discovery
 - ✅ Runs entirely in your browser
@@ -43,7 +43,7 @@ python start_services.py
 ### 🎮 Gaming Platform Support
 - **14+ Gaming Platforms**: NES, SNES, Genesis, Game Boy, GBA, GBC, N64, PlayStation, Dreamcast, Saturn, Game Gear, Neo Geo Pocket, Sega Master System, TurboGrafx-16
 - **Cross-Platform**: Works on desktop, tablet, and mobile devices
-- **Real ROM Data**: Access to actual ROM archives (not just demos)
+- **Configurable Sources**: Users can configure their own ROM sources
 
 ### 🔍 Advanced ROM Management
 - **Smart Search**: Search across all platforms or filter by specific console
@@ -80,10 +80,10 @@ GitHub Codespaces provides a complete cloud-based development environment that r
 
 ### Codespaces Features
 
-#### ✅ **Full ROM Downloading**
-- Access real ROM archives
-- Download individual or multiple ROMs
-- Progress tracking for all downloads
+#### ✅ **File Management**
+- Configurable file sources (users provide their own)
+- Individual and batch file operations  
+- Progress tracking for all operations
 
 #### ✅ **Device Transfer Capabilities**
 - Connect to your local network devices through Codespaces port forwarding

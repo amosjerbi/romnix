@@ -154,7 +154,7 @@ const platforms = {
     NES: {
         id: "nes",
         label: "NES",
-        archiveUrl: "https://your-rom-archive.com/nes/", // Add your URL
+        archiveUrl: "", // Users must configure their own ROM sources
         extensions: ["7z", "zip", "nes"],
         icon: "sports_esports"
     }

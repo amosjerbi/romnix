@@ -7,7 +7,7 @@ Welcome to ROM Downloader Web in GitHub Codespaces! This guide will help you get
 GitHub Codespaces provides a complete development environment in the cloud. For ROM Downloader Web, this means:
 
 - ✅ **No local setup required** - Everything runs in your browser
-- ✅ **Full functionality** - Real ROM downloads and device transfers
+- ✅ **Full functionality** - Complete file management and device transfers
 - ✅ **Pre-configured environment** - All dependencies already installed
 - ✅ **Persistent storage** - Your settings and templates are saved
 - ✅ **SSH capabilities** - Direct connection to your handheld devices
