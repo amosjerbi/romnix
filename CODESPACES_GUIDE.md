@@ -114,9 +114,10 @@ python start_services.py
 
 ### Can't Connect to Device
 1. Verify device has SSH enabled
-2. Check IP address is correct
+2. Check IP address is correct  
 3. Try different passwords (muOS sometimes uses 'root' or empty password)
-4. Ensure device is accessible from internet if using Codespaces
+4. **📖 See [NETWORK_SETUP_GUIDE.md](NETWORK_SETUP_GUIDE.md) for complete connection setup**
+5. Most users need **port forwarding** on their router to connect from Codespaces
 
 ### ROM Downloads Failing
 1. Check the CORS proxy is running (port 8001)

@@ -102,13 +102,17 @@ GitHub Codespaces provides a complete cloud-based development environment that r
 
 ### Connecting to Local Devices
 
-When using Codespaces, your handheld device and the Codespace can communicate if they're both accessible via the internet or if you set up proper port forwarding.
+Yes! Users can connect their Codespace to their local handheld devices, but it requires network setup since Codespaces run in the cloud.
 
-**For local network devices:**
-1. Ensure your handheld device has SSH enabled
-2. Note your device's local IP address
-3. Use the Network tab in the web interface to add your device
-4. Codespaces will handle the connection through its networking
+**📖 See [NETWORK_SETUP_GUIDE.md](NETWORK_SETUP_GUIDE.md) for complete instructions**
+
+**Quick Setup (Port Forwarding)**:
+1. **Router setup**: Forward external port 2222 → device IP port 22
+2. **Find public IP**: Visit whatismyipaddress.com  
+3. **ROM Downloader**: Use public IP with port 2222
+4. **Security**: Disable port forwarding when not in use
+
+**Alternative options**: VPN tunneling (ngrok, Tailscale) for more secure access
 
 ## 🔧 Configuration
 
