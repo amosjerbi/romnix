@@ -85,7 +85,7 @@ body {
 
 /* Top Navigation */
 .top-nav {
-    background-color: var(--surface-color);
+    /* background-color: var(--surface-color); */
     border-bottom: none;
     padding: var(--spacing-xl) 0;
     position: sticky;
@@ -223,7 +223,7 @@ body {
 .handheld-card .card-header {
     display: flex;
     align-items: center;
-    gap: var(--spacing-xl);
+    gap: var(--spacing-md);
     margin-bottom: 0;
     flex-wrap: nowrap;
 }
@@ -270,11 +270,11 @@ body {
 }
 
 .connect-btn {
-    padding: var(--spacing-md) var(--spacing-xl);
+    padding: var(--spacing-lg) var(--spacing-xl);
     background-color: #000000;
     color: white;
     border: none;
-    border-radius: 100px;
+    border-radius: 10px;
     font-weight: 600;
     font-size: var(--font-size-base);
     cursor: pointer;
@@ -291,7 +291,7 @@ body {
     content: '';
     position: absolute;
     inset: -2px;
-    border-radius: 100px;
+    border-radius: var(--radius-lg);
     padding: 2px;
     background: linear-gradient(120deg, #00f2fe, #4facfe);
     -webkit-mask: 
@@ -321,6 +321,47 @@ body {
 
 .connect-btn:active {
     transform: scale(0.98);
+}
+
+.card-buttons {
+    display: flex;
+    gap: var(--spacing-md);
+    align-items: center;
+    margin-top: var(--spacing-md);
+}
+
+.card-buttons .connect-btn {
+    margin-left: 0;
+    flex: 0 0 auto;
+}
+
+.card-buttons .connect-btn:first-child {
+    margin-right: auto;
+}
+
+.card-buttons .connect-btn.secondary {
+    background-color: var(--color-bg-secondary);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border);
+    min-width: 120px;
+}
+
+.card-buttons .connect-btn.secondary::before {
+    background: linear-gradient(120deg, var(--color-border), var(--color-border-hover));
+}
+
+.card-buttons .connect-btn.secondary:hover {
+    background-color: var(--color-bg-hover);
+    border-color: var(--color-border-hover);
+}
+
+.card-buttons .connect-btn.secondary .material-icons {
+    font-size: 18px;
+    margin-right: 6px;
+}
+
+.card-buttons .connect-btn.secondary::after {
+    display: none;
 }
 
 .quick-actions {
@@ -1445,15 +1486,73 @@ body {
     }
 
     .handheld-card .card-header {
-        flex-direction: column;
-        text-align: center;
-        gap: var(--spacing-lg);
+        flex-direction: row;
+        text-align: left;
+        gap: var(--spacing-md);
+        align-items: center;
     }
 
     .connect-btn {
         margin-left: 0;
         width: 100%;
         margin-top: var(--spacing-lg);
+    }
+    
+    /* Card buttons mobile layout */
+    .card-buttons {
+        flex-wrap: wrap;
+        gap: var(--spacing-sm);
+    }
+    
+    .card-buttons .connect-btn,
+    .card-buttons .action-btn {
+        width: auto !important;
+        flex: 1 1 auto;
+        min-width: 80px;
+        margin-top: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding: var(--spacing-md) var(--spacing-lg) !important;
+        font-size: 14px !important;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+    
+    .card-buttons .connect-btn:first-child {
+        margin-right: 0;
+        flex: 2 1 auto;
+    }
+    
+    .card-buttons .action-btn.secondary {
+        background-color: var(--surface-color) !important;
+        border: 1px solid var(--primary-color) !important;
+        color: var(--primary-color) !important;
+    }
+    
+    .card-buttons .action-btn.secondary:hover {
+        background-color: var(--primary-color) !important;
+        color: var(--surface-color) !important;
+    }
+    
+    /* Stack buttons vertically on very small screens */
+    @media (max-width: 480px) {
+        .card-buttons {
+            flex-direction: column;
+            align-items: stretch;
+        }
+        
+        .card-buttons .connect-btn,
+        .card-buttons .action-btn {
+            width: 100% !important;
+            flex: none !important;
+            white-space: normal;
+        }
+        
+        .card-buttons .connect-btn:first-child {
+            margin-right: 0;
+            flex: none !important;
+        }
     }
     
     .console-grid {

@@ -34,16 +34,6 @@
                     <div class="devices-section">
                         <div class="section-header">
                             <h3>Connect device</h3>
-                            <div class="section-actions">
-                                <button class="action-btn secondary" id="editTemplatesBtn">
-                                    <span class="material-icons">edit</span>
-                                    Edit Templates
-                                </button>
-                                <button class="action-btn secondary" id="testConnectionBtn">
-                                    <span class="material-icons">network_check</span>
-                                    Connect device
-                                </button>
-                            </div>
                         </div>
                         
                         <div class="handheld-cards">
@@ -56,7 +46,17 @@
                                         <h3>Rocknix</h3>
                                     </div>
                                 </div>
-                                <button class="connect-btn" data-template="rocknix">Connect</button>
+                                <div class="card-buttons">
+                                    <button class="connect-btn" data-template="rocknix">Choose</button>
+                                    <button class="action-btn secondary" id="testConnectionBtn-rocknix">
+                                        <span class="material-icons">network_check</span>
+                                        Connect
+                                    </button>
+                                    <button class="action-btn secondary" id="editTemplatesBtn-rocknix">
+                                        <span class="material-icons">edit</span>
+                                        Edit
+                                    </button>
+                                </div>
                             </div>
 
                             <div class="handheld-card" id="muosCard">
@@ -68,7 +68,17 @@
                                         <h3>muOS</h3>
                                     </div>
                                 </div>
-                                <button class="connect-btn" data-template="muos">Connect</button>
+                                <div class="card-buttons">
+                                    <button class="connect-btn" data-template="muos">Choose</button>
+                                    <button class="action-btn secondary" id="testConnectionBtn-muos">
+                                        <span class="material-icons">network_check</span>
+                                        Connect
+                                    </button>
+                                    <button class="action-btn secondary" id="editTemplatesBtn-muos">
+                                        <span class="material-icons">edit</span>
+                                        Edit
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
