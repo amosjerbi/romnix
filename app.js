@@ -85,7 +85,11 @@ class RomDownloaderApp {
             });
         });
         
-        document.getElementById('editTemplatesBtn').addEventListener('click', () => {
+        // Edit templates buttons for both platforms
+        document.getElementById('editTemplatesBtn-rocknix').addEventListener('click', () => {
+            this.showTemplateEditor();
+        });
+        document.getElementById('editTemplatesBtn-muos').addEventListener('click', () => {
             this.showTemplateEditor();
         });
         
@@ -133,8 +137,12 @@ class RomDownloaderApp {
             this.scanNetwork();
         });
         
-        document.getElementById('testConnectionBtn').addEventListener('click', () => {
-            this.testConnection();
+        // Test connection buttons for both platforms
+        document.getElementById('testConnectionBtn-rocknix').addEventListener('click', () => {
+            this.testConnection('testConnectionBtn-rocknix');
+        });
+        document.getElementById('testConnectionBtn-muos').addEventListener('click', () => {
+            this.testConnection('testConnectionBtn-muos');
         });
         
 
@@ -1110,7 +1118,7 @@ class RomDownloaderApp {
         }, 2000);
     }
     
-    testConnection() {
+    testConnection(buttonId = null) {
         // Check if we're running on GitHub Pages (no backend services)
         if (window.location.hostname.includes('github.io')) {
             this.showNotification('⚠️ Connection testing requires GitHub Codespaces or local setup. See README for instructions.', 'error');
@@ -1122,7 +1130,7 @@ class RomDownloaderApp {
             return;
         }
         
-        const testBtn = document.getElementById('testConnectionBtn');
+        const testBtn = buttonId ? document.getElementById(buttonId) : document.getElementById('testConnectionBtn');
         const originalText = testBtn.textContent;
         testBtn.textContent = 'Testing...';
         testBtn.disabled = true;
