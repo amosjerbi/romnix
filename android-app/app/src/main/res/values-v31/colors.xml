@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Empty State Colors (Android 12+ Light Theme) - surfaceContainerHigh style -->
+    <color name="empty_state_primary">#E4E4E7</color>        <!-- High contrast light gray -->
+    <color name="empty_state_secondary">#D4D4D8</color>      <!-- Medium-high gray -->
+    <color name="empty_state_surface">#F4F4F5</color>        <!-- High contrast surface -->
+    <color name="empty_state_outline">#A1A1AA</color>        <!-- Stronger outline -->
+</resources>

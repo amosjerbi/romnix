@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Empty State Colors (Dark Theme) - surfaceContainerHigh style -->
+    <color name="empty_state_primary">#52525B</color>        <!-- High contrast dark gray -->
+    <color name="empty_state_secondary">#71717A</color>      <!-- Lighter high contrast gray -->
+    <color name="empty_state_surface">#3F3F46</color>        <!-- Elevated dark surface -->
+    <color name="empty_state_outline">#A1A1AA</color>        <!-- High visibility outline -->
+    
+    <!-- Dark Theme Specific Colors -->
+    <color name="dark_background">#0F0E11</color>
+    <color name="dark_surface">#1C1B1F</color>
+    <color name="dark_surface_variant">#49454F</color>
+    <color name="light_text">#E6E1E5</color>
+    <color name="vibrant_blue_alpha">#4D3B82F6</color>
+    <color name="light_blue_alpha">#664AB5FB</color>
+</resources>

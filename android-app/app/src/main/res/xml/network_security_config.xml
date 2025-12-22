@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">archive.org</domain>
+        <domain includeSubdomains="true">ia801602.us.archive.org</domain>
+        <domain includeSubdomains="true">ia801603.us.archive.org</domain>
+        <domain includeSubdomains="true">ia801604.us.archive.org</domain>
+        <domain includeSubdomains="true">ia801605.us.archive.org</domain>
+    </domain-config>
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system"/>
+        </trust-anchors>
+    </base-config>
+</network-security-config>

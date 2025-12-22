@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Romnix</string>
+    <string name="search_hint">Search term</string>
+    <string name="search">Search</string>
+    <string name="download_selected">Download selected</string>
+    <string name="download_all">Download all</string>
+</resources>

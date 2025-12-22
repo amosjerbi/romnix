@@ -1,0 +1,22 @@
+# IDE files
+.idea/
+.DS_Store
+*.iml
+
+# Android
+android-app/local.properties
+android-app/keystore.properties
+android-app/.gradle/
+android-app/build/
+android-app/app/build/
+android-app/app/release/
+
+# Development tools (not needed in repo)
+android-app/bundletool.jar
+
+# Gradle
+.gradle/
+build/
+
+# OS generated files
+Thumbs.db

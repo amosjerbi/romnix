@@ -1,0 +1,38 @@
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+# Keystore files
+*.jks
+*.keystore
+keystore.properties
+
+# Signing files
+*.pepk
+
+# Google Services
+google-services.json
+
+# Built application files
+*.apk
+*.aab
+*.ap_
+*.dex
+
+# Generated files
+bin/
+gen/
+out/
+release/

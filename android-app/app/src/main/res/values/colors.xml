@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary Colors -->
+    <color name="purple_primary">#6366F1</color>
+    <color name="purple_light">#A5B4FC</color>
+    <color name="purple_dark">#4338CA</color>
+    
+    <!-- Surface Colors -->
+    <color name="white">#FFFFFF</color>
+    <color name="surface_light">#FEFEFE</color>
+    <color name="surface_variant_light">#F5F5F5</color>
+    <color name="background_light">#FFFFFF</color>
+    
+    <!-- Text Colors -->
+    <color name="on_surface_light">#1F2937</color>
+    <color name="on_surface_variant_light">#6B7280</color>
+    <color name="on_background_light">#111827</color>
+    
+    <!-- Accent Colors -->
+    <color name="success_green">#10B981</color>
+    <color name="warning_orange">#F59E0B</color>
+    <color name="error_red">#EF4444</color>
+    
+    <!-- Card and Component Colors -->
+    <color name="card_background">#FFFFFF</color>
+    <color name="divider_color">#E5E7EB</color>
+    <color name="icon_tint">#9CA3AF</color>
+    
+    <!-- App Icon Background -->
+    <color name="ic_launcher_background">#487EF1</color>
+    
+    <!-- Empty State Material 3 Colors (Light Theme) - surfaceContainerHigh style -->
+    <color name="empty_state_primary">#E4E4E7</color>        <!-- High contrast light gray -->
+    <color name="empty_state_secondary">#D4D4D8</color>      <!-- Medium-high gray -->
+    <color name="empty_state_surface">#F4F4F5</color>        <!-- High contrast surface -->
+    <color name="empty_state_outline">#A1A1AA</color>        <!-- Stronger outline -->
+    <color name="empty_state_gray">#71717A</color>           <!-- Darker gray for better contrast -->
+    
+    <!-- Material 3 Theme Colors -->
+    <color name="vibrant_blue">#3B82F6</color>
+    <color name="dark_blue">#1E3A8A</color>
+    <color name="light_blue">#4AB5FB</color>
+    
+    <!-- Light Theme Specific Colors (defaults for values-night overrides) -->
+    <color name="dark_background">#FFFFFF</color>            <!-- Light background (overridden in dark theme) -->
+    <color name="dark_surface">#FEFEFE</color>               <!-- Light surface (overridden in dark theme) -->
+    <color name="dark_surface_variant">#F5F5F5</color>       <!-- Light surface variant (overridden in dark theme) -->
+    <color name="light_text">#1F2937</color>                 <!-- Dark text for light theme (overridden in dark theme) -->
+    <color name="vibrant_blue_alpha">#4D3B82F6</color>       <!-- Vibrant blue with alpha -->
+    <color name="light_blue_alpha">#664AB5FB</color>         <!-- Light blue with alpha -->
+</resources>

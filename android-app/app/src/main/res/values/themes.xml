@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Simple XML theme just for the Activity window -->
+    <!-- The actual app theming is handled by Compose AppTheme -->
+    <style name="Theme.Material3.DayNight.NoActionBar" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        
+        <!-- Status Bar -->
+        <item name="android:statusBarColor">@color/purple_primary</item>
+        <item name="android:windowLightStatusBar">false</item>
+        
+        <!-- Navigation Bar -->
+        <item name="android:navigationBarColor">@color/white</item>
+    </style>
+</resources>
