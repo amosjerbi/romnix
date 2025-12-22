@@ -1,9 +1,9 @@
-# Romnix - Retro Gaming ROM Manager
+# Romnix - Retro Gaming File Manager
 
 <div align="center">
   <img src="Assets/logo.png" alt="Romnix Logo" width="200"/>
   
-  **A modern Android app for managing and transferring ROMs to retro gaming devices**
+  **A modern Android app for managing and transferring files to retro gaming devices**
   
   [![Version](https://img.shields.io/badge/version-1.0.20-blue.svg)](https://github.com/your-repo/romnix)
   [![API](https://img.shields.io/badge/API-24%2B-brightgreen.svg)](https://android-arsenal.com/api?level=24)
@@ -12,16 +12,16 @@
 
 ## 📱 Overview
 
-Romnix is a comprehensive Android application designed for retro gaming enthusiasts who want to easily manage, search, and transfer ROM files to their handheld gaming devices like RockNix, Lakka, muOS, and other Linux-based retro gaming systems.
+Romnix is a comprehensive Android application designed for retro gaming enthusiasts who want to easily manage, search, and transfer files to their handheld gaming devices like RockNix, Lakka, muOS, and other Linux-based retro gaming systems.
 
 ### 🎮 Main Features
 
 <img src="Assets/main_flow.png" alt="Main App Flow" width="100%"/>
 
-- **ROM Search & Discovery**: Browse and search ROMs across multiple platforms and sources
+- **File Search & Discovery**: Browse and search files across multiple platforms and sources
 - **Device Management**: Connect to retro gaming devices via SSH/SFTP
-- **File Transfer**: Seamlessly upload ROMs to connected devices
-- **Backlog Management**: Keep track of ROMs you want to download or play
+- **File Transfer**: Seamlessly upload files to connected devices
+- **Backlog Management**: Keep track of files you want to download or play
 - **Remote File Browser**: Navigate and manage files on connected devices
 - **Multi-Platform Support**: Works with various retro gaming platforms (NES, SNES, Genesis, Game Boy, etc.)
 
@@ -49,15 +49,15 @@ Romnix features a modern Material 3 design with:
 ### Key Components
 
 #### 📱 Screens
-- **BacklogScreen**: Manage your ROM wishlist and downloads
-- **BrowseScreen**: Search and browse ROMs by platform
+- **BacklogScreen**: Manage your file wishlist and downloads
+- **BrowseScreen**: Search and browse files by platform
 - **DevicesScreen**: Connect and manage retro gaming devices
 - **FileBrowserScreen**: Remote file management on connected devices
 - **SettingsScreen**: App configuration and preferences
 
 #### 🌐 Networking
 - **SshTester**: Test connections to retro gaming devices
-- **SshUploader**: Transfer ROM files to devices via SFTP
+- **SshUploader**: Transfer files to devices via SFTP
 - **SshFileManager**: Browse and manage remote files
 - **HostScanner**: Discover devices on local network
 
@@ -72,7 +72,7 @@ Romnix features a modern Material 3 design with:
 ### Prerequisites
 - Android device running Android 7.0 (API 24) or higher
 - Retro gaming device with SSH access (optional)
-- Network connection for ROM browsing
+- Network connection for file browsing
 
 ### Installation
 1. Download the latest APK from the releases page
@@ -87,16 +87,16 @@ Romnix features a modern Material 3 design with:
    - Tap "+" to add a device
    - Enter device IP, username, and password
    - Test connection
-3. **Browse ROMs**: Use the Search tab to find ROMs
-4. **Build Backlog**: Add interesting ROMs to your backlog
+3. **Browse Files**: Use the Search tab to find files
+4. **Build Backlog**: Add interesting files to your backlog
 
 ## 📋 Features in Detail
 
-### 🔍 ROM Search & Browse
-- Search across multiple ROM sources
+### 🔍 File Search & Browse
+- Search across multiple file sources
 - Filter by gaming platform (NES, SNES, Genesis, etc.)
-- Preview ROM details and metadata
-- Add ROMs to backlog for later download
+- Preview file details and metadata
+- Add files to backlog for later download
 
 ### 📱 Device Management
 - **Auto-Discovery**: Scan local network for compatible devices
@@ -107,14 +107,14 @@ Romnix features a modern Material 3 design with:
 
 ### 📂 File Management
 - **Remote File Browser**: Navigate device file systems
-- **Upload ROMs**: Transfer files directly to device ROM folders
+- **Upload Files**: Transfer files directly to device folders
 - **File Operations**: Rename, copy, delete files on remote devices
 - **Download Files**: Pull files from devices to Android storage
 - **Folder Management**: Create and organize directories
 
 ### 📝 Backlog System
-- **ROM Wishlist**: Keep track of ROMs you want to play
-- **Download Queue**: Manage ROM downloads
+- **File Wishlist**: Keep track of files you want to play
+- **Download Queue**: Manage file downloads
 - **Progress Tracking**: Monitor download status
 - **Export/Import**: Backup your backlog data
 
